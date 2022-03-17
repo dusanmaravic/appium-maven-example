@@ -13,8 +13,8 @@ public abstract class BaseTestNG {
 
         @BeforeSuite
         public void globalSetup() throws IOException {
-            service = AppiumDriverLocalService.buildDefaultService();
-            service.start();
+//            service = AppiumDriverLocalService.buildDefaultService();
+//            service.start();
         }
 
         @AfterSuite
@@ -24,7 +24,7 @@ public abstract class BaseTestNG {
             }
         }
 
-        public URL getServiceUrl() {
-            return service.getUrl();
-        }
+//        public URL getServiceUrl() {
+//            return service.getUrl();
+//        }
     }

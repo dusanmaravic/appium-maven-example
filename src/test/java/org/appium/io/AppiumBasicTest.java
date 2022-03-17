@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class AppiumBasicTest extends BaseTestNG {
 
@@ -25,9 +26,9 @@ public class AppiumBasicTest extends BaseTestNG {
 
     @BeforeClass
     public void setUp() throws IOException {
-        File classpathRoot = new File(System.getProperty("C://appiumExampleTest"));
-        File appDir = new File(classpathRoot, "../apps");
-        File app = new File(appDir.getCanonicalPath(), "ApiDemos-debug.apk");
+//        File classpathRoot = new File(System.getProperty("user.dir"));
+//        File appDir = new File(classpathRoot, "");
+//        File app = new File(appDir.getCanonicalPath(), "");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         /*
         'deviceName' capability only affects device selection if you run the test in a cloud
@@ -49,7 +50,7 @@ public class AppiumBasicTest extends BaseTestNG {
         If this capability is not set then your test starts on Dashboard view.
         It is also possible to provide an URL where the app is located.
         */
-        capabilities.setCapability("app", app.getAbsolutePath());
+        capabilities.setCapability("app", "C:/JavaProjects/appium-maven-example/ApiDemos-debug.apk");
 
         /*
         By default Appium tries to autodetect the main application activity,
@@ -80,7 +81,7 @@ public class AppiumBasicTest extends BaseTestNG {
         if you have more questions.
         */
 
-        driver = new AndroidDriver<WebElement>(getServiceUrl(), capabilities);
+        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
     }
 
     @AfterClass

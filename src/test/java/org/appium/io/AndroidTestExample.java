@@ -1,5 +1,6 @@
 package org.appium.io;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebElement;
@@ -10,24 +11,32 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 public class AndroidTestExample extends BaseTestNG {
-    private static AppiumDriverLocalService service;
+//    private static AppiumDriverLocalService service;
     private final String PACKAGE = "io.appium.android.apis";
     private AndroidDriver<WebElement> driver;
 
     @BeforeSuite
     public void setUp() throws Exception {
-        File classpathRoot = new File(System.getProperty("user.dir"));
-        File appDir = new File(classpathRoot, "../apps");
-        File app = new File(appDir.getCanonicalPath(), "ApiDemos-debug.apk");
+//        File classpathRoot = new File(System.getProperty("user.dir"));
+//        File appDir = new File(classpathRoot, "");
+//        File app = new File(appDir.getCanonicalPath(), "");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Android Emulator");
-        capabilities.setCapability("app", app.getAbsolutePath());
+        capabilities.setCapability("app", "C:/JavaProjects/appium-maven-example/ApiDemos-debug.apk");
+//        capabilities.setCapability("app", app.getAbsolutePath());
+        capabilities.setCapability("automationName","UiAutomator2");
         capabilities.setCapability("appPackage", "io.appium.android.apis");
         capabilities.setCapability("appActivity", ".ApiDemos");
-        driver = new AndroidDriver<WebElement>(getServiceUrl(), capabilities);
+        capabilities.setCapability("noReset", false);
+//        System.out.println("apk path: " + app.getAbsolutePath());
+//        capabilities.setCapability("w3c", false);
+//        capabilities.setCapability("appium:chromeOptions", ImmutableMap.of("w3c", false));
+//        driver = new AndroidDriver<WebElement>(getServiceUrl(), capabilities);
+        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
     }
 
     @AfterSuite
@@ -55,8 +64,6 @@ public class AndroidTestExample extends BaseTestNG {
         List<WebElement> linearLayoutElements = (List<WebElement>) driver.findElementsByClassName("android.widget.FrameLayout");
         Assert.assertTrue(linearLayoutElements.size() > 1);
     }
-
-    ;
 
     @Test
     public void testFindElementsByXPath() {
